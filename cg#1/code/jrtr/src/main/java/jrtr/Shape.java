@@ -44,7 +44,8 @@ public class Shape {
 	{
 		this.t = t;
 		for (Shape mountedShape : mountedShapes) {
-			mountedShape.setTransformation(t);
+			Matrix4f clonedMatrix = new Matrix4f(t);
+			mountedShape.setTransformation(clonedMatrix);
 		}
 	}
 	

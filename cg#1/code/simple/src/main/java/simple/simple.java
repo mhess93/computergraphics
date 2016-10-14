@@ -24,6 +24,7 @@ public class simple
 	static SimpleSceneManager sceneManager;
 	static Shape shape, shape2, shape3;
 	static float currentstep, basicstep, turningStep;
+	static int i = 0;
 
 	/**
 	 * An extension of {@link GLRenderPanel} or {@link SWRenderPanel} to 
@@ -107,6 +108,7 @@ public class simple
 			sceneManager.addShape(cube);
 			sceneManager.addShape(cylinder);
 //			sceneManager.addShape(torus);
+			i = 0;
 
 
 			// Add the scene to the renderer
@@ -170,6 +172,9 @@ public class simple
 	{
 		public void run()
 		{
+			if(currentstep > 0){
+				i++;
+			}
 			// Update transformation by rotating with angle "currentstep"
     		Matrix4f t1 = shape.getTransformation();
     		Matrix4f rotX = new Matrix4f();
@@ -183,6 +188,13 @@ public class simple
     		t1.mul(rotY);
 
     		shape.setTransformation(t1);
+    		
+    		Matrix4f t2 = shape3.getTransformation();
+    		
+    		t2.mul(rotZ);
+    		
+    		shape3.setTransformation(t2);
+
     		
     		// Trigger redrawing of the render window
     		renderPanel.getCanvas().repaint(); 
