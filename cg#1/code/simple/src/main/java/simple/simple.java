@@ -100,11 +100,11 @@ public class simple
 			// Make a scene manager and add the object
 			sceneManager = new SimpleSceneManager();
 			
-			shape = torus;
+			shape = cube;
+			shape.mountShape(cylinder);
 			shape3 = cylinder;
-			shape2 = cube;
 
-//			sceneManager.addShape(cube);
+			sceneManager.addShape(cube);
 			sceneManager.addShape(cylinder);
 //			sceneManager.addShape(torus);
 
@@ -181,28 +181,8 @@ public class simple
     		
     		t1.mul(rotX);
     		t1.mul(rotY);
-    		
-    		shape.setTransformation(t1);
 
-    		Matrix4f translationMatrix = Matrix4fUtils.identity;
-    		translationMatrix.setTranslation(new Vector3f(0,(float)Math.PI/2,2));
-    		
-    		Matrix4f t2 = new Matrix4f(t1);
-    		
-    		translationMatrix.mul(rotZ);
-    		t2.mul(translationMatrix);
-		
-    		shape3.setTransformation(t2);
-    		
-    		Matrix4f t3 = new Matrix4f(t1);
-    		
-    		Matrix4f translationMatrix2 = Matrix4fUtils.identity;
-    		t3.mul(translationMatrix2);
-   		
-    		translationMatrix2.setTranslation(new Vector3f(2.5f,0,1));
-    	
-    		t3.mul(translationMatrix2);	
-    		shape2.setTransformation(t3);
+    		shape.setTransformation(t1);
     		
     		// Trigger redrawing of the render window
     		renderPanel.getCanvas().repaint(); 

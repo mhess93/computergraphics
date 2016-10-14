@@ -1,5 +1,9 @@
 package jrtr;
+import java.util.ArrayList;
+
 import javax.vecmath.*;
+
+import jrtr.gldeferredrenderer.Matrix4fUtils;
 
 /**
  * Represents a 3D object. The shape references its geometry, 
@@ -11,6 +15,7 @@ public class Shape {
 	private Material material;
 	private VertexData vertexData;
 	private Matrix4f t;
+	private ArrayList<Shape> mountedShapes;
 	
 	/**
 	 * Make a shape from {@link VertexData}. A shape contains the geometry 
@@ -27,6 +32,7 @@ public class Shape {
 		t.setIdentity();
 		
 		material = null;
+		mountedShapes = new ArrayList<Shape>();
 	}
 	
 	public VertexData getVertexData()
@@ -37,6 +43,9 @@ public class Shape {
 	public void setTransformation(Matrix4f t)
 	{
 		this.t = t;
+		for (Shape mountedShape : mountedShapes) {
+			mountedShape.setTransformation(t);
+		}
 	}
 	
 	public Matrix4f getTransformation()
@@ -61,6 +70,14 @@ public class Shape {
 	public Material getMaterial()
 	{
 		return material;
+	}
+	
+	public void mountShape(Shape shape){
+		this.mountedShapes.add(shape);
+	}
+	
+	public void dismountShape(Shape shape){
+		this.mountedShapes.remove(shape);
 	}
 
 }
